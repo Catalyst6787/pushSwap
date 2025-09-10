@@ -1,12 +1,10 @@
 #include "push_swap.h"
 #include <stdlib.h>
 
-void shuffle(uint16_t *array, size_t n)
+void shuffle(uint16_t *array, size_t n, unsigned int seed)
 {
-
-    unsigned int seed;
-
-    seed = SEED;
+    if (seed == 0)
+        seed = SEED;
     if (n > 1) 
     {
         size_t i;

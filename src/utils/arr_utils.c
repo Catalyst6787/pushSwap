@@ -1,7 +1,8 @@
+#include "../libft/includes/ft_printf.h"
 #include "push_swap.h"
 #include <stdint.h>
 
-void print_arr(uint16_t *arr, uint16_t size)
+void print_arr(const uint16_t *arr, const uint16_t size)
 {
   uint16_t i;
 
@@ -12,14 +13,36 @@ void print_arr(uint16_t *arr, uint16_t size)
   printf("\n");
 }
 
-void init_sorted_arr(t_arr arr)
+void print_stacks(const t_stack stack)
 {
-  uint16_t i;
+  int i;
 
-  i = 0;
-  while (i < arr.size)
+  i = stack.split -1;
+  ft_printf("stack_a:\n");
+  while (i >= 0)
   {
-    arr.arr[i] = i;
+    ft_printf("%u", stack.arr[i]);
+    i--;
+  }
+  i = stack.split;
+  ft_printf("\nstack_b:\n");
+  while (i < STACK_LEN)
+  {
+    ft_printf("%u", stack.arr[i]);
     i++;
   }
+}
+
+void init_sorted_stack(t_stack stack)
+{
+  int i;
+
+  i = STACK_LEN;
+  while (i > 0)
+  {
+    stack.arr[STACK_LEN - i] = i - 1;
+    i--;
+  }
+  stack.diff = 0;
+  stack.split = STACK_LEN;
 }

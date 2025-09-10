@@ -11,16 +11,17 @@
 # define MAX_DEPTH 1
 # define SEED 696034213
 
-typedef struct s_arr
+typedef struct s_stack
 {
   uint16_t *arr;
-  uint16_t size;
   uint16_t diff;
-} t_arr;
+  uint16_t split;
+} t_stack;
 
-void shuffle(uint16_t *array, size_t n);
-void print_arr(uint16_t *arr, uint16_t size);
-void init_sorted_arr(t_arr arr);
+void shuffle(uint16_t *array, size_t n, unsigned int seed);
+void print_arr(const uint16_t *arr, const uint16_t size);
+void print_stacks(const t_stack stack);
+void init_sorted_stack(t_stack stack);
 
 
 #endif

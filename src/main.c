@@ -6,20 +6,21 @@
 
 int main(void)
 {
-  t_arr base;
+  t_stack base;
 
-  base.size = STACK_LEN;
+  base.split = STACK_LEN;
   base.diff = 0;
-  base.arr = malloc(sizeof(uint16_t) * base.size);
-  init_sorted_arr(base);
+  base.arr = malloc(sizeof(uint16_t) * STACK_LEN);
+  init_sorted_stack(base);
   ft_printf("generating random stack of length=%d\n", STACK_LEN);
-  // print_arr(base.arr, base.size);
   ft_printf("sorted list:\n");
-  print_arr(base.arr, base.size);
-  shuffle(base.arr, STACK_LEN);
-  ft_printf("\nunsorted list:\n");
-  print_arr(base.arr, base.size);
-  ft_printf("\n\nLaunching pushSwap:\n");
+  print_arr(base.arr, STACK_LEN);
+  print_stacks(base);
+  shuffle(base.arr, STACK_LEN, SEED);
+  ft_printf("unsorted list:\n");
+  print_arr(base.arr, STACK_LEN);
+  print_stacks(base);
+  ft_printf("\nLaunching pushSwap:\n");
   free(base.arr);
   base.arr = NULL;
 }
