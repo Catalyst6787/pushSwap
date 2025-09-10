@@ -1,6 +1,6 @@
-#include "../libft/includes/ft_printf.h"
 #include "push_swap.h"
 #include <stdint.h>
+#include <stdio.h>
 
 void print_arr(const uint16_t *arr, const uint16_t size)
 {
@@ -21,16 +21,20 @@ void print_stacks(const t_stack stack, uint16_t stack_len)
   ft_printf("stack_a:\n");
   while (i >= 0)
   {
-    ft_printf("%u", stack.arr[i]);
+    ft_printf("|%u", stack.arr[i]);
     i--;
   }
+  if (i != stack.split -1)
+    ft_printf("|");
   i = stack.split;
   ft_printf("\nstack_b:\n");
   while (i < stack_len)
   {
-    ft_printf("%u", stack.arr[i]);
+    ft_printf("|%u", stack.arr[i]);
     i++;
   }
+  if (i != stack.split)
+    ft_printf("|");
   ft_printf("\n");
 }
 
