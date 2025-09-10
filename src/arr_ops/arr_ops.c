@@ -40,3 +40,13 @@ int	push_b(t_stack *stack, uint16_t stack_len)
 	stack->split--;
 	return (0);
 }
+
+int push_a(t_stack *stack, uint16_t stack_len)
+{
+	assert(stack_len > 0);
+	assert(stack->split < stack_len);
+	assert(stack->arr);
+
+	stack->split++;
+	return (0);
+}

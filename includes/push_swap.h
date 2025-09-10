@@ -27,6 +27,7 @@ int start_all_tests(void);
 int	swap_a(t_stack stack, uint16_t stack_len);
 int swap_b(t_stack stack, uint16_t stack_len);
 int	push_b(t_stack *stack, uint16_t stack_len);
+int push_a(t_stack *stack, uint16_t stack_len);
 
 #endif
 
