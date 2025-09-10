@@ -425,9 +425,7 @@ int	test_rev_rotate_a_big_stack(void)
   base.arr = malloc(sizeof(uint16_t) * length);
   comp.arr = malloc(sizeof(uint16_t) * length);
   init_sorted_stack(&base, length);
-  print_stacks(base, length);
   rev_rotate_a(&base, length);
-  print_stacks(base, length);
   if (base.arr[0] != 8)
   	return (0);
   free(base.arr);
