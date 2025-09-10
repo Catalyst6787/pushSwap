@@ -12,7 +12,7 @@ LIBFT = ./libft/libft.a
 
 SRC_DIR = src
 
-SRC = main.c shuffle.c arr_utils.c
+SRC = main.c shuffle.c arr_utils.c tests.c arr_ops.c
 
 OBJ_DIR = objects
 

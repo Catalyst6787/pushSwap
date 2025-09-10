@@ -13,7 +13,7 @@ void print_arr(const uint16_t *arr, const uint16_t size)
   printf("\n");
 }
 
-void print_stacks(const t_stack stack)
+void print_stacks(const t_stack stack, uint16_t stack_len)
 {
   int i;
 
@@ -26,23 +26,41 @@ void print_stacks(const t_stack stack)
   }
   i = stack.split;
   ft_printf("\nstack_b:\n");
-  while (i < STACK_LEN)
+  while (i < stack_len)
   {
     ft_printf("%u", stack.arr[i]);
     i++;
   }
 }
 
-void init_sorted_stack(t_stack stack)
+void init_sorted_stack(t_stack *stack, uint16_t stack_len)
 {
   int i;
 
-  i = STACK_LEN;
+  i = stack_len;
   while (i > 0)
   {
-    stack.arr[STACK_LEN - i] = i - 1;
+    stack->arr[stack_len - i] = i - 1;
     i--;
   }
-  stack.diff = 0;
-  stack.split = STACK_LEN;
+  stack->diff = 0;
+  stack->split = stack_len;
+}
+
+int stack_cmp(t_stack ref, t_stack other, uint16_t stack_len)
+{
+  uint16_t i;
+
+  i = 0;
+  if (ref.diff != other.diff)
+    return (1);
+  if (ref.split != other.split)
+    return (1);
+  while (i < stack_len)
+  {
+    if (ref.arr[i] != other.arr[i])
+      return (1);
+    i++;
+  }
+  return (0);
 }

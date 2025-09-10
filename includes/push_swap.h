@@ -20,9 +20,12 @@ typedef struct s_stack
 
 void shuffle(uint16_t *array, size_t n, unsigned int seed);
 void print_arr(const uint16_t *arr, const uint16_t size);
-void print_stacks(const t_stack stack);
-void init_sorted_stack(t_stack stack);
-
+void print_stacks(const t_stack stack, uint16_t stack_len);
+void init_sorted_stack(t_stack *stack, uint16_t stack_len);
+int  stack_cmp(t_stack ref, t_stack other, uint16_t stack_len);
+int start_all_tests(void);
+int	swap_a(t_stack stack, uint16_t stack_len);
+int	push_b(t_stack stack, uint16_t stack_len);
 
 #endif
 
