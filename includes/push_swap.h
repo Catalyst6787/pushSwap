@@ -39,10 +39,12 @@ void print_stacks(const t_stack stack, uint16_t stack_len);
 void init_sorted_stack(t_stack *stack, uint16_t stack_len);
 int  stack_cmp(t_stack ref, t_stack other, uint16_t stack_len);
 int start_all_tests(void);
-int	swap_a(t_stack stack, uint16_t stack_len);
-int swap_b(t_stack stack, uint16_t stack_len);
+int	swap_a(t_stack *stack, uint16_t stack_len);
+int swap_b(t_stack *stack, uint16_t stack_len);
+int swap_s(t_stack *stack, uint16_t stack_len);
 int	push_b(t_stack *stack, uint16_t stack_len);
 int push_a(t_stack *stack, uint16_t stack_len);
+int rotate_a(t_stack *stack, uint16_t stack_len);
 
 #endif
 
