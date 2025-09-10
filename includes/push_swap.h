@@ -18,6 +18,21 @@ typedef struct s_stack
   uint16_t split;
 } t_stack;
 
+typedef enum e_move
+{
+  sa = 0,
+  sb,
+  ss,
+  pa,
+  pb,
+  ra,
+  rb,
+  rr,
+  rra,
+  rrb,
+  rrr
+} t_move;
+
 void shuffle(uint16_t *array, size_t n, unsigned int seed);
 void print_arr(const uint16_t *arr, const uint16_t size);
 void print_stacks(const t_stack stack, uint16_t stack_len);
