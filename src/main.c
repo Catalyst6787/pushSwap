@@ -4,4 +4,5 @@
 int main(void)
 {
   ft_printf("compilation success");
+  ft_printf("test");
 }
