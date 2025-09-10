@@ -101,6 +101,13 @@ int rotate_b(t_stack *stack, uint16_t stack_len)
 	return (0);
 }
 
+int rotate_r(t_stack *stack, uint16_t stack_len)
+{
+	rotate_a(stack, stack_len);
+	rotate_b(stack, stack_len);
+	return (0);
+}
+
 int rev_rotate_a(t_stack *stack, uint16_t stack_len)
 {
 	int	i;
@@ -140,5 +147,12 @@ int rev_rotate_b(t_stack *stack, uint16_t stack_len)
 		tmp = next;
 		i++;
 	}
+	return (0);
+}
+
+int rev_rotate_r(t_stack *stack, uint16_t stack_len)
+{
+	rev_rotate_a(stack, stack_len);
+	rev_rotate_b(stack, stack_len);
 	return (0);
 }

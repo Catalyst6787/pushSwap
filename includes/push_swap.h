@@ -45,9 +45,11 @@ int swap_s(t_stack *stack, uint16_t stack_len);
 int	push_b(t_stack *stack, uint16_t stack_len);
 int push_a(t_stack *stack, uint16_t stack_len);
 int rotate_a(t_stack *stack, uint16_t stack_len);
-int rev_rotate_a(t_stack *stack, uint16_t stack_len);
 int rotate_b(t_stack *stack, uint16_t stack_len);
+int rotate_r(t_stack *stack, uint16_t stack_len);
+int rev_rotate_a(t_stack *stack, uint16_t stack_len);
 int rev_rotate_b(t_stack *stack, uint16_t stack_len);
+int rev_rotate_r(t_stack *stack, uint16_t stack_len);
 
 #endif
 
