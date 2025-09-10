@@ -143,7 +143,6 @@ int	test_push_all_to_b(void)
   return (1);
 }
 
-
 int	test_swap_b(void)
 {
 	uint16_t	length;
@@ -170,7 +169,6 @@ int	test_swap_b(void)
   comp.arr = NULL;
   return (1);
 }
-
 
 int	test_swap_b_big(void)
 {
@@ -216,7 +214,6 @@ int	test_swap_b_big(void)
   return (1);
 }
 
-
 int	test_swap_b_a_not_empty(void)
 {
 	uint16_t	length;
@@ -252,7 +249,6 @@ int	test_swap_b_a_not_empty(void)
   comp.arr = NULL;
   return (1);
 }
-
 
 int	test_push_a(void)
 {
@@ -300,7 +296,6 @@ int	test_push_a_big_stack(void)
   base.arr = NULL;
   return (1);
 }
-
 
 int	test_rotate_a(void)
 {
@@ -394,7 +389,6 @@ int	test_rotate_a_b_not_empty(void)
   return (1);
 }
 
-
 int	test_rev_rotate_a_small_stack(void)
 {
 	uint16_t	length;
@@ -435,16 +429,120 @@ int	test_rev_rotate_a_big_stack(void)
   return (1);
 }
 
+int	test_rotate_b_small_stack(void)
+{
+	uint16_t	length;
+	t_stack		base;
+	t_stack		comp;
+
+	length = 2;
+  base.arr = malloc(sizeof(uint16_t) * length);
+  comp.arr = malloc(sizeof(uint16_t) * length);
+  init_sorted_stack(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  rotate_b(&base, length);
+  if (base.arr[0] != 0)
+  	return (0);
+  free(base.arr);
+  free(comp.arr);
+  base.arr = NULL;
+  comp.arr = NULL;
+  return (1);
+}
+
+int	test_rotate_b_big_stack(void)
+{
+	uint16_t	length;
+	t_stack		base;
+	t_stack		comp;
+
+	length = 10;
+  base.arr = malloc(sizeof(uint16_t) * length);
+  comp.arr = malloc(sizeof(uint16_t) * length);
+  init_sorted_stack(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  rotate_b(&base, length);
+  if (base.arr[0] != 8)
+  	return (0);
+  free(base.arr);
+  free(comp.arr);
+  base.arr = NULL;
+  comp.arr = NULL;
+  return (1);
+}
+
+int	test_rev_rotate_b_small_stack(void)
+{
+	uint16_t	length;
+	t_stack		base;
+	t_stack		comp;
+
+	length = 2;
+  base.arr = malloc(sizeof(uint16_t) * length);
+  comp.arr = malloc(sizeof(uint16_t) * length);
+  init_sorted_stack(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  rev_rotate_b(&base, length);
+  if (base.arr[0] != 0)
+  	return (0);
+  free(base.arr);
+  free(comp.arr);
+  base.arr = NULL;
+  comp.arr = NULL;
+  return (1);
+}
+
+int	test_rev_rotate_b_big_stack(void)
+{
+	uint16_t	length;
+	t_stack		base;
+	t_stack		comp;
+
+	length = 10;
+  base.arr = malloc(sizeof(uint16_t) * length);
+  comp.arr = malloc(sizeof(uint16_t) * length);
+  init_sorted_stack(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  push_b(&base, length);
+  rev_rotate_b(&base, length);
+  if (base.arr[0] != 0)
+  	return (0);
+  free(base.arr);
+  free(comp.arr);
+  base.arr = NULL;
+  comp.arr = NULL;
+  return (1);
+}
+
 int start_all_tests(void)
 {
 	if (!test_generate_random_stack())
 		return (0);
-	printf("test generate random stack success\n");
+	ft_printf("test generate random stack success\n");
 	if (!test_swap_a())
 		return (0);
 	if (!test_swap_a_small_stack())
 		return (0);
-	printf("test swap a success\n");
+	ft_printf("test swap a success\n");
 	if (!test_push_b())
 		return (0);
 	if (!test_push_b_big_stack())
@@ -457,12 +555,12 @@ int start_all_tests(void)
 		return (0);
 	if (!test_swap_b_a_not_empty())
 		return (0);
-	printf("test push_b success\n");
+	ft_printf("test push_b success\n");
 	if (!test_push_a())
 		return (0);
 	if (!test_push_a_big_stack())
 		return (0);
-	printf("test push_a success\n");
+	ft_printf("test push_a success\n");
 	if (!test_rotate_a())
 		return(0);
 	if (!test_rotate_a_small_stack())
@@ -471,11 +569,21 @@ int start_all_tests(void)
 		return(0);
 	if (!test_rotate_a_b_not_empty())
 		return (0);
-	printf("test rotate_a success\n");
+	ft_printf("test rotate_a success\n");
 	if (!test_rev_rotate_a_small_stack())
 		return (0);
 	if (!test_rev_rotate_a_big_stack())
 		return (0);
 	ft_printf("test_rev_rotate_a success\n");
+	if (!test_rotate_b_small_stack())
+		return (0);
+	if (!test_rotate_b_big_stack())
+		return (0);
+	ft_printf("test_rotate_b success\n");
+	if (!test_rev_rotate_b_small_stack())
+		return (0);
+	if (!test_rev_rotate_b_big_stack())
+		return (0);
+	ft_printf("test_rev_rotate b success\n");
 	return (1);
 }

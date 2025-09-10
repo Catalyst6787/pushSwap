@@ -80,6 +80,26 @@ int rotate_a(t_stack *stack, uint16_t stack_len)
 	return (0);
 }
 
+int rotate_b(t_stack *stack, uint16_t stack_len)
+{
+	int	i;
+	uint16_t tmp;
+	uint16_t next;
+	
+	i = stack_len -1;
+	assert(stack_len > 0);
+	assert(stack_len - stack->split > 1);
+	assert(stack->arr);
+	tmp = stack->arr[stack->split];
+	while (i >= stack->split)
+	{
+		next = stack->arr[i];
+		stack->arr[i] = tmp;
+		tmp = next;
+		i--;
+	}
+	return (0);
+}
 
 int rev_rotate_a(t_stack *stack, uint16_t stack_len)
 {
@@ -98,6 +118,27 @@ int rev_rotate_a(t_stack *stack, uint16_t stack_len)
 		stack->arr[i] = tmp;
 		tmp = next;
 		i--;
+	}
+	return (0);
+}
+
+int rev_rotate_b(t_stack *stack, uint16_t stack_len)
+{
+	int	i;
+	uint16_t tmp;
+	uint16_t next;
+	
+	i = stack->split;
+	assert(stack_len > 0);
+	assert(stack_len - stack->split > 1);
+	assert(stack->arr);
+	tmp = stack->arr[stack_len - 1];
+	while (i < stack_len)
+	{
+		next = stack->arr[i];
+		stack->arr[i] = tmp;
+		tmp = next;
+		i++;
 	}
 	return (0);
 }
