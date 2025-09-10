@@ -31,6 +31,7 @@ void print_stacks(const t_stack stack, uint16_t stack_len)
     ft_printf("%u", stack.arr[i]);
     i++;
   }
+  ft_printf("\n");
 }
 
 void init_sorted_stack(t_stack *stack, uint16_t stack_len)

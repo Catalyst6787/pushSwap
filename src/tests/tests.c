@@ -73,6 +73,50 @@ int	test_swap_a_small_stack(void)
   return (1);
 }
 
+int	test_push_b(void)
+{
+	uint16_t	length;
+	t_stack		base;
+
+	length = 1;
+  base.arr = malloc(sizeof(uint16_t) * length);
+  init_sorted_stack(&base, length);
+  print_stacks(base, length);
+  printf("stack.split = %u\n", base.split);
+  push_b(&base, length);
+  if (base.split == 1)
+  	return (0);
+  if (base.arr[0] != 0)
+  	return (0);
+  print_stacks(base, length);
+  printf("stack.split = %u\n", base.split);
+  free(base.arr);
+  base.arr = NULL;
+  return (1);
+}
+
+int	test_push_b_big_stack(void)
+{
+	uint16_t	length;
+	t_stack		base;
+
+	length = 10;
+  base.arr = malloc(sizeof(uint16_t) * length);
+  init_sorted_stack(&base, length);
+  print_stacks(base, length);
+  printf("stack.split = %u\n", base.split);
+  push_b(&base, length);
+  if (base.split == 10)
+  	return (0);
+  if (base.arr[0] != 9)
+  	return (0);
+  print_stacks(base, length);
+  printf("stack.split = %u\n", base.split);
+  free(base.arr);
+  base.arr = NULL;
+  return (1);
+}
+
 int start_all_tests(void)
 {
 	if (!test_generate_random_stack())
@@ -82,6 +126,11 @@ int start_all_tests(void)
 		return (0);
 	if (!test_swap_a_small_stack())
 		return (0);
-	printf("test swap a\n");
+	printf("test swap a success\n");
+	if (!test_push_b())
+		return (0);
+	if (!test_push_b_big_stack())
+		return (0);
+	printf("test push_b success\n");
 	return (1);
 }
