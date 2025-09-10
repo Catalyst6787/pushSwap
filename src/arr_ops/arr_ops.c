@@ -16,6 +16,21 @@ int	swap_a(t_stack stack, uint16_t stack_len)
 	return (0);
 }
 
+int swap_b(t_stack stack, uint16_t stack_len)
+{
+	uint16_t tmp;
+
+	assert(stack_len > 1);
+	assert(stack_len - stack.split > 1);
+	assert(stack.arr);
+
+	tmp = stack.arr[stack.split];
+	stack.arr[stack.split] = stack.arr[stack.split + 1];
+	stack.arr[stack.split + 1] = tmp;
+
+	return (0);
+}
+
 int	push_b(t_stack *stack, uint16_t stack_len)
 {
 	assert(stack_len > 0);
