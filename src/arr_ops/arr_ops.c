@@ -1,3 +1,4 @@
+#include "bits/types/stack_t.h"
 #include "push_swap.h"
 #include <assert.h>
 #include <stdint.h>
@@ -28,6 +29,13 @@ int swap_b(t_stack stack, uint16_t stack_len)
 	stack.arr[stack.split] = stack.arr[stack.split + 1];
 	stack.arr[stack.split + 1] = tmp;
 
+	return (0);
+}
+
+int swap_both(t_stack stack, uint16_t stack_len)
+{
+	swap_a(stack, stack_len);
+	swap_b(stack, stack_len);
 	return (0);
 }
 
