@@ -1,7 +1,9 @@
 #include "push_swap.h"
 #include "ft_printf.h"
 #include "libft.h"
+#include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int test_generate_random_stack(void)
 {
@@ -535,6 +537,54 @@ int	test_rev_rotate_b_big_stack(void)
   return (1);
 }
 
+int test_is_stack_sorted(void)
+{
+	uint16_t	length;
+	t_stack		stack;
+
+	length = 10;
+	stack.arr = malloc(sizeof(uint16_t) * length);
+	init_sorted_stack(&stack, length);
+	if (!is_stack_sorted(stack, length))
+		return (0);
+	push_b(&stack, length);
+	if (!is_stack_sorted(stack, length))
+		return (0);
+	push_b(&stack, length);
+	push_b(&stack, length);
+	if (!is_stack_sorted(stack, length))
+		return (0);
+	push_b(&stack, length);
+	push_b(&stack, length);
+	push_b(&stack, length);
+	push_b(&stack, length);
+	push_b(&stack, length);
+	push_b(&stack, length);
+	push_b(&stack, length);
+	if (!is_stack_sorted(stack, length))
+		return (0);
+	swap_b(&stack, length);
+	if (is_stack_sorted(stack, length))
+		return (0);
+	swap_b(&stack, length);
+	push_a(&stack, length);
+	push_a(&stack, length);
+	push_a(&stack, length);
+	push_a(&stack, length);
+	push_a(&stack, length);
+	push_a(&stack, length);
+	push_a(&stack, length);
+	push_a(&stack, length);
+	push_a(&stack, length);
+	push_a(&stack, length);
+	if (!is_stack_sorted(stack, length))
+		return (0);
+	rotate_a(&stack, length);
+	if (is_stack_sorted(stack, length))
+		return (0);
+	return (1);
+}
+
 int start_all_tests(void)
 {
 	if (!test_generate_random_stack())
@@ -587,5 +637,8 @@ int start_all_tests(void)
 	if (!test_rev_rotate_b_big_stack())
 		return (0);
 	ft_printf("test_rev_rotate b success\n");
+	if (!test_is_stack_sorted())
+		return (0);
+	ft_printf("test_is_stack_sorted success\n");
 	return (1);
 }

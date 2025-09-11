@@ -1,6 +1,8 @@
 #include "push_swap.h"
+#include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 void print_arr(const uint16_t *arr, const uint16_t size)
 {
@@ -68,4 +70,19 @@ int stack_cmp(t_stack ref, t_stack other, uint16_t stack_len)
     i++;
   }
   return (0);
+}
+
+bool  is_stack_sorted(t_stack stack, uint16_t stack_len)
+{
+  uint16_t i;
+
+  i = 1;
+  assert(stack.arr);
+  while(i < stack_len)
+  {
+    if (stack.arr[i - 1] <= stack.arr[i])
+      return (false);
+    i++;
+  }
+  return (true);
 }

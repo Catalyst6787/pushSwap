@@ -18,10 +18,7 @@ int main(void)
   base.diff = 0;
   base.arr = malloc(sizeof(uint16_t) * stack_len);
   init_sorted_stack(&base, stack_len);
-  // ft_printf("sorted list:\n");
-  // print_stacks(base, stack_len);
   shuffle(base.arr, stack_len, SEED);
-  // ft_printf("\nLaunching pushSwap:\n");
   free(base.arr);
   base.arr = NULL;
 }
