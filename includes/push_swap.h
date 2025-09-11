@@ -37,13 +37,21 @@ typedef enum e_move
   rrr
 } t_move;
 
+
+// arr utils
 void shuffle(uint16_t *array, size_t n, unsigned int seed);
 void print_arr(const uint16_t *arr, const uint16_t size);
 void print_stacks(const t_stack stack, uint16_t stack_len);
 void init_sorted_stack(t_stack *stack, uint16_t stack_len);
 bool  is_stack_sorted(t_stack stack, uint16_t stack_len);
 int  stack_cmp(t_stack ref, t_stack other, uint16_t stack_len);
+uint16_t  unnormalized_diff(t_stack stack, uint16_t stack_len);
+uint16_t  get_stack_diff(t_stack stack, uint16_t stack_len);
+
+// tests
 int  start_all_tests(void);
+
+// arr ops
 int	 swap_a(t_stack *stack, uint16_t stack_len);
 int  swap_b(t_stack *stack, uint16_t stack_len);
 int  swap_s(t_stack *stack, uint16_t stack_len);
@@ -55,6 +63,9 @@ int  rotate_r(t_stack *stack, uint16_t stack_len);
 int  rev_rotate_a(t_stack *stack, uint16_t stack_len);
 int  rev_rotate_b(t_stack *stack, uint16_t stack_len);
 int  rev_rotate_r(t_stack *stack, uint16_t stack_len);
+
+// utils
+unsigned int ft_abs(int val);
 
 #endif
 

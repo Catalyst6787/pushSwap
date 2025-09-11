@@ -585,6 +585,33 @@ int test_is_stack_sorted(void)
 	return (1);
 }
 
+int test_get_stack_diff(void)
+{
+	
+	uint16_t	length;
+	t_stack		stack;
+
+	length = 10;
+	stack.arr = malloc(sizeof(uint16_t) * length);
+	init_sorted_stack(&stack, length);
+	print_stacks(stack, length);
+	ft_printf("diff: [%d]\n", get_stack_diff(stack, length));
+	swap_a(&stack, length);
+	print_stacks(stack, length);
+	ft_printf("diff: [%d]\n", get_stack_diff(stack, length));
+	swap_a(&stack, length);
+	rotate_a(&stack, length);
+	print_stacks(stack, length);
+	ft_printf("diff: [%d]\n", get_stack_diff(stack, length));
+	rev_rotate_a(&stack, length);
+	push_b(&stack, length);
+	push_b(&stack, length);
+	push_b(&stack, length);
+	print_stacks(stack, length);
+	ft_printf("diff: [%d]\n", get_stack_diff(stack, length));
+	return (1);
+}
+
 int start_all_tests(void)
 {
 	if (!test_generate_random_stack())
@@ -640,5 +667,8 @@ int start_all_tests(void)
 	if (!test_is_stack_sorted())
 		return (0);
 	ft_printf("test_is_stack_sorted success\n");
+	if (!test_get_stack_diff())
+		return (0);
+	ft_printf("test get_stack_diff success\n");
 	return (1);
 }

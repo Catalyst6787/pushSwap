@@ -86,3 +86,51 @@ bool  is_stack_sorted(t_stack stack, uint16_t stack_len)
   }
   return (true);
 }
+
+unsigned int ft_abs(int val)
+{
+  if (val < 0)
+    return (-val);
+  return (val);
+}
+
+uint16_t  unnormalized_diff(t_stack stack, uint16_t stack_len)
+{
+  uint16_t i;
+  uint16_t diff;
+
+  i = 0;
+  diff = 0;
+  assert(stack.arr);
+  while(i < stack_len)
+  {
+    diff += ft_abs(stack.arr[i] - (stack_len - i - 1));
+    i++;
+  }
+  diff += stack_len - stack.split;
+  return (diff);
+} 
+
+uint16_t  normalized_diff(t_stack stack, uint16_t stack_len)
+{
+  uint16_t i;
+  uint16_t diff;
+
+  i = 0;
+  diff = 0;
+  assert(stack.arr);
+  while(i < stack_len)
+  {
+    if (ft_abs(stack.arr[i] - (stack_len - i - 1)))
+      diff++;
+    i++;
+  }
+  diff += stack_len - stack.split;
+  return (diff);
+} 
+
+uint16_t  get_stack_diff(t_stack stack, uint16_t stack_len)
+{
+  return (unnormalized_diff(stack, stack_len));
+  // TODO test other ways [ex normalized_diff()]
+}
