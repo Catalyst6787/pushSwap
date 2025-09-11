@@ -14,11 +14,11 @@
 # define STACK_LEN 5
 # define MAX_DEPTH 1
 # define SEED 696034213
+# define DEBUG 0
 
 typedef struct s_stack
 {
   uint16_t *arr;
-  uint16_t diff;
   uint16_t split;
 } t_stack;
 
@@ -37,6 +37,17 @@ typedef enum e_move
   rrr
 } t_move;
 
+typedef struct s_data
+{
+  uint16_t max_depth;
+  uint16_t stack_len;
+  uint16_t depth;
+  t_stack *best;
+  t_stack *stack_arena;
+  uint16_t *array_arena;
+  t_move  *best_moves;
+  t_move  *current_moves;
+} t_data;
 
 // arr utils
 void shuffle(uint16_t *array, size_t n, unsigned int seed);
@@ -49,7 +60,7 @@ uint16_t  unnormalized_diff(t_stack stack, uint16_t stack_len);
 uint16_t  get_stack_diff(t_stack stack, uint16_t stack_len);
 
 // tests
-int  start_all_tests(void);
+int  start_all_tests(bool verbose);
 
 // arr ops
 int	 swap_a(t_stack *stack, uint16_t stack_len);

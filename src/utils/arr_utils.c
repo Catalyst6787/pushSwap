@@ -50,7 +50,6 @@ void init_sorted_stack(t_stack *stack, uint16_t stack_len)
     stack->arr[stack_len - i] = i - 1;
     i--;
   }
-  stack->diff = 0;
   stack->split = stack_len;
 }
 
@@ -59,8 +58,6 @@ int stack_cmp(t_stack ref, t_stack other, uint16_t stack_len)
   uint16_t i;
 
   i = 0;
-  if (ref.diff != other.diff)
-    return (1);
   if (ref.split != other.split)
     return (1);
   while (i < stack_len)
@@ -85,13 +82,6 @@ bool  is_stack_sorted(t_stack stack, uint16_t stack_len)
     i++;
   }
   return (true);
-}
-
-unsigned int ft_abs(int val)
-{
-  if (val < 0)
-    return (-val);
-  return (val);
 }
 
 uint16_t  unnormalized_diff(t_stack stack, uint16_t stack_len)

@@ -492,7 +492,7 @@ int	test_rev_rotate_b_small_stack(void)
 	t_stack		comp;
 
 	length = 2;
-  base.arr = malloc(sizeof(uint16_t) * length);
+	base.arr = malloc(sizeof(uint16_t) * length);
   comp.arr = malloc(sizeof(uint16_t) * length);
   init_sorted_stack(&base, length);
   push_b(&base, length);
@@ -582,6 +582,7 @@ int test_is_stack_sorted(void)
 	rotate_a(&stack, length);
 	if (is_stack_sorted(stack, length))
 		return (0);
+	free(stack.arr);
 	return (1);
 }
 
@@ -594,34 +595,29 @@ int test_get_stack_diff(void)
 	length = 10;
 	stack.arr = malloc(sizeof(uint16_t) * length);
 	init_sorted_stack(&stack, length);
-	print_stacks(stack, length);
-	ft_printf("diff: [%d]\n", get_stack_diff(stack, length));
 	swap_a(&stack, length);
-	print_stacks(stack, length);
-	ft_printf("diff: [%d]\n", get_stack_diff(stack, length));
 	swap_a(&stack, length);
 	rotate_a(&stack, length);
-	print_stacks(stack, length);
-	ft_printf("diff: [%d]\n", get_stack_diff(stack, length));
 	rev_rotate_a(&stack, length);
 	push_b(&stack, length);
 	push_b(&stack, length);
 	push_b(&stack, length);
-	print_stacks(stack, length);
-	ft_printf("diff: [%d]\n", get_stack_diff(stack, length));
+	free(stack.arr);
 	return (1);
 }
 
-int start_all_tests(void)
+int start_all_tests(bool verbose)
 {
 	if (!test_generate_random_stack())
 		return (0);
-	ft_printf("test generate random stack success\n");
+	if (verbose == true)
+		ft_printf("test generate random stack success\n");
 	if (!test_swap_a())
 		return (0);
 	if (!test_swap_a_small_stack())
 		return (0);
-	ft_printf("test swap a success\n");
+	if (verbose == true)
+		ft_printf("test swap a success\n");
 	if (!test_push_b())
 		return (0);
 	if (!test_push_b_big_stack())
@@ -634,12 +630,14 @@ int start_all_tests(void)
 		return (0);
 	if (!test_swap_b_a_not_empty())
 		return (0);
-	ft_printf("test push_b success\n");
+	if (verbose == true)
+		ft_printf("test push_b success\n");
 	if (!test_push_a())
 		return (0);
 	if (!test_push_a_big_stack())
 		return (0);
-	ft_printf("test push_a success\n");
+	if (verbose == true)
+		ft_printf("test push_a success\n");
 	if (!test_rotate_a())
 		return(0);
 	if (!test_rotate_a_small_stack())
@@ -648,27 +646,33 @@ int start_all_tests(void)
 		return(0);
 	if (!test_rotate_a_b_not_empty())
 		return (0);
-	ft_printf("test rotate_a success\n");
+	if (verbose == true)
+		ft_printf("test rotate_a success\n");
 	if (!test_rev_rotate_a_small_stack())
 		return (0);
 	if (!test_rev_rotate_a_big_stack())
 		return (0);
-	ft_printf("test_rev_rotate_a success\n");
+	if (verbose == true)
+		ft_printf("test_rev_rotate_a success\n");
 	if (!test_rotate_b_small_stack())
 		return (0);
 	if (!test_rotate_b_big_stack())
 		return (0);
-	ft_printf("test_rotate_b success\n");
+	if (verbose == true)
+		ft_printf("test_rotate_b success\n");
 	if (!test_rev_rotate_b_small_stack())
 		return (0);
 	if (!test_rev_rotate_b_big_stack())
 		return (0);
-	ft_printf("test_rev_rotate b success\n");
+	if (verbose == true)
+		ft_printf("test_rev_rotate b success\n");
 	if (!test_is_stack_sorted())
 		return (0);
-	ft_printf("test_is_stack_sorted success\n");
+	if (verbose == true)
+		ft_printf("test_is_stack_sorted success\n");
 	if (!test_get_stack_diff())
 		return (0);
-	ft_printf("test get_stack_diff success\n");
+	if (verbose == true)
+		ft_printf("test get_stack_diff success\n");
 	return (1);
 }
