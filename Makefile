@@ -5,7 +5,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -Wpedantic -pedantic-errors -g
 LDFLAGS = -L ./libft -lft
-
+INCLUDEFLAGS = -I ./includes -I ./libft/includes
 RM = rm -f
 
 LIBFT = ./libft/libft.a
@@ -32,15 +32,15 @@ all: $(NAME)
 
 $(NAME): $(SRC_OBJ) $(LIBFT)
 	@printf "$(PURPLE)Linking $(NAME)...$(RESET)\n"
-	$(CC) $(CFLAGS) $(SRC_OBJ) $(LDFLAGS) -o $(NAME) -I ./includes
+	$(CC) $(CFLAGS) $(SRC_OBJ) $(LDFLAGS) -o $(NAME) $(INCLUDEFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@printf "$(PURPLE)Compiling $< (main)...$(RESET)\n"
-	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ -I ./includes
+	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ $(INCLUDEFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/*/%.c | $(OBJ_DIR)
 	@printf "$(PURPLE)Compiling $< (main)...$(RESET)\n"
-	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ -I ./includes
+	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ $(INCLUDEFLAGS)
 
 -include $(DEP_FILES)
 

@@ -1,5 +1,6 @@
 #include "bits/types/stack_t.h"
 #include "push_swap.h"
+#include "ft_printf.h"
 #include <assert.h>
 #include <stdint.h>
 

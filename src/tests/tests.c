@@ -1,4 +1,6 @@
 #include "push_swap.h"
+#include "ft_printf.h"
+#include "libft.h"
 #include <stdio.h>
 
 int test_generate_random_stack(void)

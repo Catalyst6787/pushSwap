@@ -1,8 +1,10 @@
-#include "../libft/includes/libft.h"
 #include "push_swap.h"
-#include "../libft/includes/ft_printf.h"
+
 #include <stdint.h>
 #include <stdlib.h>
+
+#include "libft.h"
+#include "ft_printf.h"
 
 int main(void)
 {

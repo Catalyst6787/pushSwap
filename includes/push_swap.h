@@ -1,9 +1,9 @@
 #ifndef PUSHSWAP_H
 # define PUSHSWAP_H
 
-# include "../libft/includes/libft.h"
-# include "../libft/includes/get_next_line_bonus.h"
-# include "../libft/includes/ft_printf.h"
+# include "libft.h"
+# include "get_next_line_bonus.h"
+# include "ft_printf.h"
 #include  "sys/types.h"
 #include  <stdint.h>
 
