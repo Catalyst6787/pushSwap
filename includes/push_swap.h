@@ -79,6 +79,7 @@ void recursion(t_data *data, t_move move, uint16_t depth);
 
 // utils
 unsigned int ft_abs(int val);
+void  print_move(t_move move);
 
 #endif
 

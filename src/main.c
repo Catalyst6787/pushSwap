@@ -23,6 +23,7 @@ int main(void)
   if (!start_all_tests(false))
     return(ft_printf("test_failed..."), 1);
   init_sorted_stack(&data.stack_arena[0], data.stack_len);
+  print_stacks(data.stack_arena[0], data.stack_len);
   // shuffle(data.stack_arena[0].arr, data.stack_len, SEED);
   ft_printf("Launching Recursion:\n");
   recursion(&data, -1, 0);

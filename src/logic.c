@@ -27,8 +27,11 @@ void recursion(t_data *data, t_move move, uint16_t depth)
 		descend(data, depth + 1);
 	else
 	{
-		ft_printf("leaf node:\nlast move: [%d]\ndepth: [%d],\nstack:\n", move, data->max_depth);
+		ft_printf("leaf node:\ndepth: [%d],\nlast move:\n", data->max_depth);
+		print_move(move);
+		ft_printf("\n");
 		print_stacks(data->stack_arena[depth], data->stack_len);
+
 	}
 }
 
