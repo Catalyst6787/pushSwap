@@ -14,10 +14,9 @@ void recursion(t_data *data, t_move move, uint16_t depth)
 {
 	if (depth != 0)
 	{
-		// assert(depth != 0);
 		ft_memcpy(&data->array_arena[depth * data->stack_len], &data->array_arena[(depth - 1) * data->stack_len], data->stack_len);
 		data->stack_arena[depth].split = data->stack_arena[depth - 1].split;
-		data->stack_arena[depth].arr = &data->array_arena[depth];
+		data->stack_arena[depth].arr = &data->array_arena[depth * data->stack_len]; // redundant
 		if (is_move_possible(data, depth, move))
 			apply_move(data, depth, move);
 		else
@@ -31,7 +30,6 @@ void recursion(t_data *data, t_move move, uint16_t depth)
 		print_move(move);
 		ft_printf("\n");
 		print_stacks(data->stack_arena[depth], data->stack_len);
-
 	}
 }
 
