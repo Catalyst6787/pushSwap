@@ -41,7 +41,6 @@ typedef struct s_data
 {
   uint16_t max_depth;
   uint16_t stack_len;
-  uint16_t depth;
   t_stack *best;
   t_stack *stack_arena;
   uint16_t *array_arena;
@@ -74,6 +73,9 @@ int  rotate_r(t_stack *stack, uint16_t stack_len);
 int  rev_rotate_a(t_stack *stack, uint16_t stack_len);
 int  rev_rotate_b(t_stack *stack, uint16_t stack_len);
 int  rev_rotate_r(t_stack *stack, uint16_t stack_len);
+
+// logic
+void recursion(t_data *data, t_move move, uint16_t depth);
 
 // utils
 unsigned int ft_abs(int val);
