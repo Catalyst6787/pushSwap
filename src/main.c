@@ -10,6 +10,7 @@
 
 
 int  init_data(t_data *data, int max_depth, int stack_len);
+void repeat_till_sorted(t_data *data);
 void free_data(t_data *data);
 
 int main(void)
@@ -23,15 +24,43 @@ int main(void)
   if (!start_all_tests(false))
     return(ft_printf("test_failed..."), 1);
   init_sorted_stack(&data.stack_arena[0], data.stack_len);
-  print_stacks(data.stack_arena[0], data.stack_len);
   shuffle(data.stack_arena[0].arr, data.stack_len, SEED);
+  ft_printf("starting point:\n");
+  print_stacks(data.stack_arena[0], data.stack_len);
   ft_printf("Launching Recursion:\n");
-  recursion(&data, -1, 0);
-  ft_printf("explored [%u] states.\nBest state:\nDiff [%d]\n", data.visited_states, data.best_diff);
-  print_stacks(*data.best_stack, data.stack_len);
+  repeat_till_sorted(&data);
   ft_printf("Recursion done\n");
   ft_printf("freeing data\nExiting\n");
   free_data(&data);
+}
+
+void  repeat_till_sorted(t_data *data)
+{
+  bool first;
+  unsigned int step;
+  long long total_states;
+
+  step = 0;
+  total_states = 0;
+  first = true;
+  while (first || data->best_diff > 0)
+  {
+    recursion(data, -1, 0);
+    ft_printf("Step n°[%d]:\nexplored [%u] states.\nBest state:\nDiff [%d]\n",
+              step,
+              data->visited_states,
+              data->best_diff);
+    print_stacks(*data->best_stack, data->stack_len);
+    ft_memcpy(&data->stack_arena[0], data->best_stack, sizeof(t_stack));
+    ft_memcpy(&data->array_arena[0], data->best_stack_arr, sizeof(uint16_t) * data->stack_len);
+    step++;
+    total_states += data->visited_states;
+    data->visited_states = 0;
+    data->best_set = false;
+    first = false;
+  }
+  ft_printf("finished sorting in [%d] steps, total operations: [%d]\n", step, step * data->stack_len);
+  ft_printf("total explored states: [%d]\n", total_states);
 }
 
 int init_data(t_data *data, int max_depth, int stack_len)

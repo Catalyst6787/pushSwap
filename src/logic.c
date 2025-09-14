@@ -23,16 +23,6 @@ void recursion(t_data *data, t_move move, uint16_t depth)
 			return ;
 		apply_move(data, depth, move);
 		data->visited_states++;
-	}
-	if (depth < data->max_depth)
-		descend(data, depth + 1);
-	else
-	{
-		// ft_printf("leaf node:\ndepth: [%d],\nsplit: [%u],\nlast move: ", data->max_depth, data->stack_arena[depth].split);
-		// print_move(move);
-		// ft_printf("\n");
-		// print_stacks(data->stack_arena[depth], data->stack_len);
-		// ft_printf("\n");
 		diff = get_stack_diff(data->stack_arena[depth], data->stack_len);
 		if (!data->best_set || diff < data->best_diff)
 		{
@@ -43,6 +33,8 @@ void recursion(t_data *data, t_move move, uint16_t depth)
 			data->best_set = true;
 		}
 	}
+	if (depth < data->max_depth)
+		descend(data, depth + 1);
 }
 
 void	descend(t_data *data, uint16_t depth)

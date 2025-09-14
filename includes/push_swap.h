@@ -11,9 +11,9 @@
 # include "colors.h"
 # include "error.h"
 
-# define STACK_LEN 10
+# define STACK_LEN 20
 # define MAX_DEPTH 7
-# define SEED 696034213
+# define SEED 696035213
 # define DEBUG 0
 
 typedef struct s_stack
