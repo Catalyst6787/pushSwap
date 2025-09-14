@@ -39,10 +39,12 @@ void  repeat_till_sorted(t_data *data)
   bool first;
   unsigned int step;
   long long total_states;
+  unsigned int total_ops;
 
   step = 0;
   total_states = 0;
   first = true;
+  total_ops = 0;
   while (first || data->best_diff > 0)
   {
     recursion(data, -1, 0);
@@ -55,11 +57,12 @@ void  repeat_till_sorted(t_data *data)
     ft_memcpy(&data->array_arena[0], data->best_stack_arr, sizeof(uint16_t) * data->stack_len);
     step++;
     total_states += data->visited_states;
+    total_ops += data->best_depth;
     data->visited_states = 0;
     data->best_set = false;
     first = false;
   }
-  ft_printf("finished sorting in [%d] steps, total operations: [%d]\n", step, step * data->stack_len);
+  ft_printf("finished sorting in [%d] steps, total operations: [%d]\n", step, total_ops);
   ft_printf("total explored states: [%d]\n", total_states);
 }
 

@@ -24,10 +24,15 @@ void recursion(t_data *data, t_move move, uint16_t depth)
 		apply_move(data, depth, move);
 		data->visited_states++;
 		diff = get_stack_diff(data->stack_arena[depth], data->stack_len);
-		if (!data->best_set || diff < data->best_diff)
+		data->current_moves[depth - 1] = move;
+		if (!data->best_set || diff < data->best_diff
+		    || (diff == data->best_diff && depth < data->best_depth))
 		{
 			data->best_diff = diff;
-			ft_memcpy(data->best_stack_arr, &data->array_arena[depth * data->stack_len], data->stack_len * sizeof(uint16_t));
+			data->best_depth = depth;
+			ft_memcpy(data->best_stack_arr, &data->array_arena[depth * data->stack_len],
+			          data->stack_len * sizeof(uint16_t));
+			ft_memcpy(data->best_moves, data->current_moves, sizeof(t_move) * depth);
 			data->best_stack->split = data->stack_arena[depth].split;
 			data->best_stack->arr = data->best_stack_arr;
 			data->best_set = true;

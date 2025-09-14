@@ -11,8 +11,8 @@
 # include "colors.h"
 # include "error.h"
 
-# define STACK_LEN 20
-# define MAX_DEPTH 7
+# define STACK_LEN 30
+# define MAX_DEPTH 8
 # define SEED 696035213
 # define DEBUG 0
 
@@ -24,7 +24,8 @@ typedef struct s_stack
 
 typedef enum e_move
 {
-  sa = 0,
+  na = 0,
+  sa,
   sb,
   ss,
   pa,
@@ -43,6 +44,7 @@ typedef struct s_data
   uint16_t stack_len;
   bool     best_set;
   uint16_t best_diff;
+  uint16_t best_depth;
   long     visited_states;
   t_stack  *stack_arena;
   uint16_t *array_arena;
