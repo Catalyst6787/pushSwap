@@ -69,12 +69,31 @@ int stack_cmp(t_stack ref, t_stack other, uint16_t stack_len)
   return (0);
 }
 
-bool  is_stack_sorted(t_stack stack, uint16_t stack_len)
+// returns true even if items in stack b
+bool  is_stack_sorted_lenient(t_stack stack, uint16_t stack_len)
 {
   uint16_t i;
 
   i = 1;
   assert(stack.arr);
+  while(i < stack_len)
+  {
+    if (stack.arr[i - 1] <= stack.arr[i])
+      return (false);
+    i++;
+  }
+  return (true);
+}
+
+// returns true only if all items are in stack a
+bool  is_stack_sorted_strict(t_stack stack, uint16_t stack_len)
+{
+  uint16_t i;
+
+  i = 1;
+  assert(stack.arr);
+  if (stack.split < stack_len)
+    return (false);
   while(i < stack_len)
   {
     if (stack.arr[i - 1] <= stack.arr[i])

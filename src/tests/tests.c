@@ -545,14 +545,20 @@ int test_is_stack_sorted(void)
 	length = 10;
 	stack.arr = malloc(sizeof(uint16_t) * length);
 	init_sorted_stack(&stack, length);
-	if (!is_stack_sorted(stack, length))
+	if (!is_stack_sorted_lenient(stack, length))
+		return (0);
+	if (!is_stack_sorted_strict(stack, length))
 		return (0);
 	push_b(&stack, length);
-	if (!is_stack_sorted(stack, length))
+	if (!is_stack_sorted_lenient(stack, length))
+		return (0);
+	if (is_stack_sorted_strict(stack, length))
 		return (0);
 	push_b(&stack, length);
 	push_b(&stack, length);
-	if (!is_stack_sorted(stack, length))
+	if (!is_stack_sorted_lenient(stack, length))
+		return (0);
+	if (is_stack_sorted_strict(stack, length))
 		return (0);
 	push_b(&stack, length);
 	push_b(&stack, length);
@@ -561,10 +567,10 @@ int test_is_stack_sorted(void)
 	push_b(&stack, length);
 	push_b(&stack, length);
 	push_b(&stack, length);
-	if (!is_stack_sorted(stack, length))
+	if (!is_stack_sorted_lenient(stack, length))
 		return (0);
 	swap_b(&stack, length);
-	if (is_stack_sorted(stack, length))
+	if (is_stack_sorted_lenient(stack, length))
 		return (0);
 	swap_b(&stack, length);
 	push_a(&stack, length);
@@ -577,10 +583,14 @@ int test_is_stack_sorted(void)
 	push_a(&stack, length);
 	push_a(&stack, length);
 	push_a(&stack, length);
-	if (!is_stack_sorted(stack, length))
+	if (!is_stack_sorted_lenient(stack, length))
+		return (0);
+	if (!is_stack_sorted_strict(stack, length))
 		return (0);
 	rotate_a(&stack, length);
-	if (is_stack_sorted(stack, length))
+	if (is_stack_sorted_lenient(stack, length))
+		return (0);
+	if (is_stack_sorted_strict(stack, length))
 		return (0);
 	free(stack.arr);
 	return (1);

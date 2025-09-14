@@ -18,7 +18,6 @@ void recursion(t_data *data, t_move move, uint16_t depth)
 		          &data->array_arena[(depth - 1) * data->stack_len],
 		          data->stack_len * sizeof(uint16_t));
 		data->stack_arena[depth].split = data->stack_arena[depth - 1].split;
-		// data->stack_arena[depth].arr = &data->array_arena[depth * data->stack_len];
 		if (!is_move_possible(data, depth, move))
 			return ;
 		apply_move(data, depth, move);
