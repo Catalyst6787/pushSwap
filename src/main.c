@@ -28,15 +28,18 @@ int main(void)
   ft_printf("Launching Recursion:\n");
   recursion(&data, -1, 0);
   ft_printf("Recursion done\n");
-  ft_printf("freeing data\n");
+  ft_printf("freeing data\nExiting\n");
   free_data(&data);
-  ft_printf("data successfuly freed\n");
 }
 
 int init_data(t_data *data, int max_depth, int stack_len)
 {
+  ft_memset(data, 0, sizeof(t_data));
   data->max_depth = max_depth;
   data->stack_len = stack_len;
+  data->best_set = false;
+  data->best_diff = 0;
+  data->visited_states = 0;
   data->stack_arena = malloc(sizeof(t_stack) * (data->max_depth + 1));
   if (!data->stack_arena)
     return (free_data(data), 1);
@@ -45,6 +48,12 @@ int init_data(t_data *data, int max_depth, int stack_len)
     return (free_data(data), 1);
   for (int i = 0; i < (max_depth + 1); i++)
     data->stack_arena[i].arr = &data->array_arena[i * stack_len];
+  data->best_stack = malloc(sizeof(t_stack));
+  if (!data->best_stack)
+    return (free_data(data), 1);
+  data->best_stack_arr = malloc(sizeof(uint16_t) * data->stack_len);
+  if (!data->best_stack_arr)
+    return (free_data(data), 1);
   data->best_moves = malloc(sizeof(t_move) * data->max_depth);
   if (!data->best_moves)
     return (free_data(data), 1);
@@ -62,9 +71,12 @@ void free_data(t_data *data)
     free(data->stack_arena);
   if (data->array_arena)
     free(data->array_arena);
+  if (data->best_stack)
+    free(data->best_stack);
+  if (data->best_stack_arr)
+    free(data->best_stack_arr);
   if (data->best_moves)
     free(data->best_moves);
   if (data->current_moves)
     free(data->current_moves);
-  ft_memset(data, 0, sizeof(t_data));
 }
