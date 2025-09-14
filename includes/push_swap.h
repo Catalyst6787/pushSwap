@@ -11,8 +11,8 @@
 # include "colors.h"
 # include "error.h"
 
-# define STACK_LEN 5
-# define MAX_DEPTH 1
+# define STACK_LEN 10
+# define MAX_DEPTH 7
 # define SEED 696034213
 # define DEBUG 0
 
@@ -43,7 +43,7 @@ typedef struct s_data
   uint16_t stack_len;
   bool     best_set;
   uint16_t best_diff;
-  uint16_t visited_states;
+  long     visited_states;
   t_stack  *stack_arena;
   uint16_t *array_arena;
   t_stack  *best_stack;

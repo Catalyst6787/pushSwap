@@ -24,9 +24,11 @@ int main(void)
     return(ft_printf("test_failed..."), 1);
   init_sorted_stack(&data.stack_arena[0], data.stack_len);
   print_stacks(data.stack_arena[0], data.stack_len);
-  // shuffle(data.stack_arena[0].arr, data.stack_len, SEED);
+  shuffle(data.stack_arena[0].arr, data.stack_len, SEED);
   ft_printf("Launching Recursion:\n");
   recursion(&data, -1, 0);
+  ft_printf("explored [%u] states.\nBest state:\nDiff [%d]\n", data.visited_states, data.best_diff);
+  print_stacks(*data.best_stack, data.stack_len);
   ft_printf("Recursion done\n");
   ft_printf("freeing data\nExiting\n");
   free_data(&data);
