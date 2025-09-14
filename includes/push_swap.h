@@ -41,7 +41,8 @@ typedef struct s_data
 {
   uint16_t max_depth;
   uint16_t stack_len;
-  t_stack *best;
+  uint16_t best_diff;
+  // t_stack *best;
   t_stack *stack_arena;
   uint16_t *array_arena;
   t_move  *best_moves;

@@ -17,7 +17,7 @@ int main(void)
   t_data data;
 
   ft_printf("initalizing data...\n");
-  if (init_data(&data, 1, STACK_LEN))
+  if (init_data(&data, MAX_DEPTH, STACK_LEN))
     return (ft_printf("Malloc error when initialising data :(\n"), 1);
   ft_printf("data initialized\n");
   if (!start_all_tests(false))
@@ -35,12 +35,8 @@ int main(void)
 
 int init_data(t_data *data, int max_depth, int stack_len)
 {
-  ft_memset(data, 0, sizeof(t_data));
   data->max_depth = max_depth;
   data->stack_len = stack_len;
-  data->best = malloc(sizeof(uint16_t) * data->stack_len);
-  if (!data->best)
-    return (free_data(data), 1);
   data->stack_arena = malloc(sizeof(t_stack) * (data->max_depth + 1));
   if (!data->stack_arena)
     return (free_data(data), 1);
@@ -62,8 +58,6 @@ void free_data(t_data *data)
 {
   if (!data)
     return ;
-  if (data->best)
-    free(data->best);
   if (data->stack_arena)
     free(data->stack_arena);
   if (data->array_arena)
