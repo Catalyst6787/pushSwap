@@ -11,8 +11,8 @@
 # include "colors.h"
 # include "error.h"
 
-# define STACK_LEN 30
-# define MAX_DEPTH 8
+# define STACK_LEN 10
+# define MAX_DEPTH 5
 # define SEED 696035213
 # define DEBUG 0
 

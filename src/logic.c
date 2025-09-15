@@ -25,6 +25,11 @@ void recursion(t_data *data, t_move move, uint16_t depth)
 		data->visited_states++;
 		diff = get_stack_diff(data->stack_arena[depth], data->stack_len);
 		data->current_moves[depth - 1] = move;
+	}
+	if (depth < data->max_depth)
+		descend(data, depth + 1);
+	if (depth == data->max_depth || (depth != 0 && diff == 0))
+	{
 		if (!data->best_set || diff < data->best_diff
 		    || (diff == data->best_diff && depth < data->best_depth))
 		{
@@ -38,8 +43,6 @@ void recursion(t_data *data, t_move move, uint16_t depth)
 			data->best_set = true;
 		}
 	}
-	if (depth < data->max_depth)
-		descend(data, depth + 1);
 }
 
 void	descend(t_data *data, uint16_t depth)
