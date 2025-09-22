@@ -21,12 +21,12 @@ int main(void)
   if (init_data(&data, MAX_DEPTH, STACK_LEN))
     return (ft_printf("Malloc error when initialising data :(\n"), 1);
   ft_printf("data initialized\n");
-  if (!start_all_tests(false))
+  if (!start_all_tests(true))
     return(ft_printf("test_failed..."), 1);
-  init_sorted_stack(&data.stack_arena[0], data.stack_len);
-  shuffle(data.stack_arena[0].arr, data.stack_len, SEED);
+  init_sorted_stack(data.array_arena, data.stack_len);
+  shuffle(data.array_arena, data.stack_len, SEED);
   ft_printf("starting point:\n");
-  print_stacks(data.stack_arena[0], data.stack_len);
+  print_stacks(data.array_arena, data.stack_len);
   ft_printf("Launching Recursion:\n");
   repeat_till_sorted(&data);
   ft_printf("Recursion done\n");
@@ -45,7 +45,7 @@ void  repeat_till_sorted(t_data *data)
   total_states = 0;
   first = true;
   total_ops = 0;
-  data->best_diff = get_stack_diff(data->stack_arena[0], data->stack_len);
+  data->best_diff = get_stack_diff(&data->array_arena[0], data->stack_len);
   data->best_set = false;
   while (first || data->best_diff > 0)
   {
@@ -61,16 +61,15 @@ void  repeat_till_sorted(t_data *data)
               step,
               data->visited_states,
               data->best_diff);
-      print_stacks(*data->best_stack, data->stack_len);
+      print_stacks(data->best_arr, data->stack_len);
     }
     for (int i = 0; i < data->best_depth; i++)
     {
       print_move(data->best_moves[i]);
       ft_printf("\n");
     }
-    ft_memcpy(&data->stack_arena[0], data->best_stack, sizeof(t_stack));
-    ft_memcpy(&data->array_arena[0], data->best_stack_arr, sizeof(uint16_t) * data->stack_len);
-    data->best_diff = get_stack_diff(data->stack_arena[0], data->stack_len);
+    ft_memcpy(&data->array_arena[0], data->best_arr, sizeof(uint16_t) * (data->stack_len + 1));
+    data->best_diff = get_stack_diff(&data->array_arena[0], data->stack_len);
     step++;
     total_states += data->visited_states;
     total_ops += data->best_depth;
@@ -90,19 +89,11 @@ int init_data(t_data *data, int max_depth, int stack_len)
   data->best_set = false;
   data->best_diff = 0;
   data->visited_states = 0;
-  data->stack_arena = malloc(sizeof(t_stack) * (data->max_depth + 1));
-  if (!data->stack_arena)
-    return (free_data(data), 1);
-  data->array_arena = malloc(sizeof(uint16_t) * stack_len * (max_depth + 1));
+  data->array_arena = malloc(sizeof(uint16_t) * (stack_len + 1) * (max_depth + 1));
   if (!data->array_arena)
     return (free_data(data), 1);
-  for (int i = 0; i < (max_depth + 1); i++)
-    data->stack_arena[i].arr = &data->array_arena[i * stack_len];
-  data->best_stack = malloc(sizeof(t_stack));
-  if (!data->best_stack)
-    return (free_data(data), 1);
-  data->best_stack_arr = malloc(sizeof(uint16_t) * data->stack_len);
-  if (!data->best_stack_arr)
+  data->best_arr = malloc(sizeof(uint16_t) * (stack_len + 1));
+  if (!data->best_arr)
     return (free_data(data), 1);
   data->best_moves = malloc(sizeof(t_move) * data->max_depth);
   if (!data->best_moves)
@@ -117,14 +108,10 @@ void free_data(t_data *data)
 {
   if (!data)
     return ;
-  if (data->stack_arena)
-    free(data->stack_arena);
   if (data->array_arena)
     free(data->array_arena);
-  if (data->best_stack)
-    free(data->best_stack);
-  if (data->best_stack_arr)
-    free(data->best_stack_arr);
+  if (data->best_arr)
+    free(data->best_arr);
   if (data->best_moves)
     free(data->best_moves);
   if (data->current_moves)

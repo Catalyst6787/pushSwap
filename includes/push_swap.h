@@ -14,13 +14,7 @@
 # define STACK_LEN 10
 # define MAX_DEPTH 7
 # define SEED 696035213
-# define DEBUG 0
-
-typedef struct s_stack
-{
-  uint16_t *arr;
-  uint16_t split;
-} t_stack;
+# define DEBUG 1
 
 typedef enum e_move
 {
@@ -46,10 +40,8 @@ typedef struct s_data
   uint16_t best_diff;
   uint16_t best_depth;
   long     visited_states;
-  t_stack  *stack_arena;
   uint16_t *array_arena;
-  t_stack  *best_stack;
-  uint16_t *best_stack_arr;
+  uint16_t  *best_arr;
   t_move   *best_moves;
   t_move   *current_moves;
 } t_data;
@@ -57,29 +49,29 @@ typedef struct s_data
 // arr utils
 void shuffle(uint16_t *array, size_t n, unsigned int seed);
 void print_arr(const uint16_t *arr, const uint16_t size);
-void print_stacks(const t_stack stack, uint16_t stack_len);
-void init_sorted_stack(t_stack *stack, uint16_t stack_len);
-bool  is_stack_sorted_lenient(t_stack stack, uint16_t stack_len);
-bool  is_stack_sorted_strict(t_stack stack, uint16_t stack_len);
-int  stack_cmp(t_stack ref, t_stack other, uint16_t stack_len);
-uint16_t  unnormalized_diff(t_stack stack, uint16_t stack_len);
-uint16_t  get_stack_diff(t_stack stack, uint16_t stack_len);
+void print_stacks(const uint16_t *stack, uint16_t stack_len);
+void init_sorted_stack(uint16_t *stack, uint16_t stack_len);
+bool  is_stack_sorted_lenient(uint16_t *stack, uint16_t stack_len);
+bool  is_stack_sorted_strict(uint16_t *stack, uint16_t stack_len);
+int  stack_cmp(uint16_t *ref, uint16_t *other, uint16_t stack_len);
+uint16_t  unnormalized_diff(uint16_t *stack, uint16_t stack_len);
+uint16_t  get_stack_diff(uint16_t *stack, uint16_t stack_len);
 
 // tests
 int  start_all_tests(bool verbose);
 
 // arr ops
-int	 swap_a(t_stack *stack, uint16_t stack_len);
-int  swap_b(t_stack *stack, uint16_t stack_len);
-int  swap_s(t_stack *stack, uint16_t stack_len);
-int	 push_b(t_stack *stack, uint16_t stack_len);
-int  push_a(t_stack *stack, uint16_t stack_len);
-int  rotate_a(t_stack *stack, uint16_t stack_len);
-int  rotate_b(t_stack *stack, uint16_t stack_len);
-int  rotate_r(t_stack *stack, uint16_t stack_len);
-int  rev_rotate_a(t_stack *stack, uint16_t stack_len);
-int  rev_rotate_b(t_stack *stack, uint16_t stack_len);
-int  rev_rotate_r(t_stack *stack, uint16_t stack_len);
+int	 swap_a(uint16_t *stack, uint16_t stack_len);
+int  swap_b(uint16_t *stack, uint16_t stack_len);
+int  swap_s(uint16_t *stack, uint16_t stack_len);
+int	 push_b(uint16_t *stack, uint16_t stack_len);
+int  push_a(uint16_t *stack, uint16_t stack_len);
+int  rotate_a(uint16_t *stack, uint16_t stack_len);
+int  rotate_b(uint16_t *stack, uint16_t stack_len);
+int  rotate_r(uint16_t *stack, uint16_t stack_len);
+int  rev_rotate_a(uint16_t *stack, uint16_t stack_len);
+int  rev_rotate_b(uint16_t *stack, uint16_t stack_len);
+int  rev_rotate_r(uint16_t *stack, uint16_t stack_len);
 
 // logic
 void recursion(t_data *data, t_move move, uint16_t depth);

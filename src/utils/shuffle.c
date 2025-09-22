@@ -3,6 +3,7 @@
 
 void shuffle(uint16_t *array, size_t n, unsigned int seed)
 {
+    array++;
     if (seed == 0)
         seed = SEED;
     if (n > 1) 
