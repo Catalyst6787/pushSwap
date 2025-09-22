@@ -30,7 +30,7 @@ void recursion(t_data *data, t_move move, uint16_t depth)
 		descend(data, depth + 1);
 	if (depth == data->max_depth || (depth != 0 && diff == 0))
 	{
-		if (!data->best_set || diff < data->best_diff
+		if (diff < data->best_diff
 		    || (diff == data->best_diff && depth < data->best_depth))
 		{
 			data->best_diff = diff;
