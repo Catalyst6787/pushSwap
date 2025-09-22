@@ -55,17 +55,19 @@ void  repeat_till_sorted(t_data *data)
       ft_printf("no better move found. exiting...\n");
       return ;
     }
-    ft_printf("Step n°[%d]:\nexplored [%u] states.\nBest state:\nDiff [%d]\n",
+    if (DEBUG)
+    {
+      ft_printf("Step n°[%d]:\nexplored [%u] states.\nBest state:\nDiff [%d]\n",
               step,
               data->visited_states,
               data->best_diff);
-    print_stacks(*data->best_stack, data->stack_len);
+      print_stacks(*data->best_stack, data->stack_len);
+    }
     for (int i = 0; i < data->best_depth; i++)
     {
       print_move(data->best_moves[i]);
       ft_printf("\n");
     }
-    // ft_printf("\n");
     ft_memcpy(&data->stack_arena[0], data->best_stack, sizeof(t_stack));
     ft_memcpy(&data->array_arena[0], data->best_stack_arr, sizeof(uint16_t) * data->stack_len);
     data->best_diff = get_stack_diff(data->stack_arena[0], data->stack_len);
