@@ -12,7 +12,7 @@
 # include "error.h"
 
 # define STACK_LEN 10
-# define MAX_DEPTH 5
+# define MAX_DEPTH 6
 # define SEED 696035213
 # define DEBUG 0
 
