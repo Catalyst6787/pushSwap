@@ -11,11 +11,13 @@
 # include "colors.h"
 # include "error.h"
 
-# define STACK_LEN 15
-# define MAX_DEPTH 7
+# define STACK_LEN 10
+# define MAX_DEPTH 6
 # define SEED 696035213
 # define DEBUG 1
-# define ARBITRARY_HASHMAP_MODIFIER 10
+# define ARBITRARY_HASHMAP_MODIFIER 1
+# define FNV_1A_OFFSET_BASIS 1469598103934665603ULL
+# define FNV_1A_PRIME 1099511628211ULL
 
 // TODO check if uint_fast16_t is faster than uint16_t
 
@@ -44,6 +46,11 @@ typedef struct s_entry {
 typedef struct s_hashmap {
   t_entry  *entries;
   uint64_t capacity;
+  uint64_t collisions;
+  uint64_t hits;
+  uint64_t skipped;
+  uint64_t replaces;
+  uint64_t unique_elements;
 } t_hashmap;
 
 typedef struct s_data
@@ -95,6 +102,11 @@ void  repeat_till_sorted(t_data *data);
 // utils
 unsigned int ft_abs(int val);
 void  print_move(t_move move);
+
+// hashmap
+uint64_t	get_fnv_1a_hash(uint16_t *stack, int n);
+int 			hashmap_get(t_data *data, uint64_t key);
+void			hashmap_put(t_data *data, uint64_t key, uint16_t depth);
 
 #endif
 

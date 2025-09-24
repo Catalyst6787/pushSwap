@@ -10,7 +10,6 @@
 
 
 int  init_data(t_data *data, int max_depth, int stack_len);
-void repeat_till_sorted(t_data *data);
 void free_data(t_data *data);
 
 int main(void)
@@ -30,6 +29,12 @@ int main(void)
   ft_printf("Launching Recursion:\n");
   repeat_till_sorted(&data);
   ft_printf("Recursion done\n");
+  ft_printf("HashMap stats:\n");
+  printf("unique elements: [%lu]\nhits: [%lu]\ncollisions: [%lu]\nfilled: [%f/1]\n", data.hashmap.unique_elements, data.hashmap.hits, data.hashmap.collisions, (float)data.hashmap.unique_elements / (float)data.hashmap.capacity);
+  printf("collision rate: [%f]\n", (float)data.hashmap.collisions / (float)data.hashmap.unique_elements);
+  printf("visited states: [%lu]\n", data.visited_states);
+  printf("skipped states: [%lu]\n", data.hashmap.skipped);
+  printf("replaced states: [%lu]\n", data.hashmap.replaces);
   ft_printf("freeing data\nExiting\n");
   free_data(&data);
 }
@@ -37,6 +42,7 @@ int main(void)
 int init_data(t_data *data, int max_depth, int stack_len)
 {
   ft_memset(data, 0, sizeof(t_data));
+  ft_memset(&data->hashmap, 0, sizeof(t_hashmap));
   data->max_depth = max_depth;
   data->stack_len = stack_len;
   data->best_set = false;
@@ -55,8 +61,8 @@ int init_data(t_data *data, int max_depth, int stack_len)
   if (!data->current_moves)
     return (free_data(data), 1);
   data->hashmap.capacity = ARBITRARY_HASHMAP_MODIFIER;
-  for (int i = 0; i < max_depth; i++)
-    data->hashmap.capacity *= 11;
+  for (int i = 0; i < data->max_depth; i++)
+    data->hashmap.capacity *= 8;
   data->hashmap.entries = malloc(sizeof(t_entry) * data->hashmap.capacity);
   if (!data->hashmap.entries)
     return (free_data(data), 1);

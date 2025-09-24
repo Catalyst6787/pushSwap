@@ -5,6 +5,7 @@
 #include <threads.h>
 #include <assert.h>
 
+void recursion(t_data *data, t_move move, uint16_t depth);
 void descend(t_data *data, uint16_t depth);
 void	apply_move(t_data *data, uint16_t depth, t_move move);
 int	is_move_possible(t_data *data, uint16_t depth, t_move move);
@@ -13,44 +14,49 @@ void  repeat_till_sorted(t_data *data);
 void recursion(t_data *data, t_move move, uint16_t depth)
 {
 	uint16_t diff;
+	uint64_t key;
+	int			 existing_depth;
 
+	// (void)existing_depth;
 	if (depth != 0)
 	{
 		ft_memcpy(&data->array_arena[depth * (data->stack_len + 1)],
 		          &data->array_arena[(depth - 1) * (data->stack_len + 1)],
 		          (data->stack_len + 1) * sizeof(uint16_t));
-		data->array_arena[depth * (data->stack_len + 1)] = data->array_arena[depth * (data->stack_len + 1)];
 		if (!is_move_possible(data, depth, move))
 			return ;
 		apply_move(data, depth, move);
+		key = get_fnv_1a_hash(&data->array_arena[depth * (data->stack_len + 1)], depth);
+		existing_depth = hashmap_get(data, key);
+		if (existing_depth >= 0 && (uint16_t)existing_depth <= depth)
+		{
+			data->hashmap.skipped++;
+			return ;
+		}
+		hashmap_put(data, key, depth);
 		data->visited_states++;
 		diff = get_stack_diff(&data->array_arena[depth * (data->stack_len + 1)], data->stack_len);
 		data->current_moves[depth - 1] = move;
 	}
+	if (depth != 0
+	    && (!data->best_set || diff < data->best_diff
+	    || (diff == data->best_diff && depth < data->best_depth)))
+	{
+		data->best_diff = diff;
+		data->best_depth = depth;
+		ft_memcpy(data->best_moves, data->current_moves, sizeof(t_move) * depth);
+		ft_memcpy(data->best_arr, &data->array_arena[depth * (data->stack_len + 1)], sizeof(uint16_t) * (data->stack_len + 1));
+		data->best_set = true;
+	}
 	if (depth < data->max_depth)
 		descend(data, depth + 1);
-	if (depth == data->max_depth || (depth != 0 && diff == 0))
-	{
-		if (diff < data->best_diff
-		    || (diff == data->best_diff && depth < data->best_depth))
-		{
-			data->best_diff = diff;
-			data->best_depth = depth;
-			ft_memcpy(data->best_arr, &data->array_arena[depth * (data->stack_len + 1)],
-			          data->stack_len * sizeof(uint16_t));
-			ft_memcpy(data->best_moves, data->current_moves, sizeof(t_move) * depth);
-			// data->best_arr = &data->array_arena[depth * (data->stack_len + 1)];
-			ft_memcpy(data->best_arr, &data->array_arena[depth * (data->stack_len + 1)], sizeof(uint16_t) * (data->stack_len + 1));
-			data->best_set = true;
-		}
-	}
 }
 
 void  repeat_till_sorted(t_data *data)
 {
   bool first;
   unsigned int step;
-  long long total_states;
+  uint64_t total_states;
   unsigned int total_ops;
 
   step = 0;
@@ -61,6 +67,10 @@ void  repeat_till_sorted(t_data *data)
   data->best_set = false;
   while (first || data->best_diff > 0)
   {
+  	if (step == 1)
+  	{
+  		step += 0;
+  	}
     recursion(data, -1, 0);
     if (!data->best_set)
     {
@@ -89,6 +99,7 @@ void  repeat_till_sorted(t_data *data)
     data->best_set = false;
     first = false;
   }
+  data->visited_states = total_states;
   ft_printf("finished sorting in [%d] steps, total operations: [%d]\n", step, total_ops);
   ft_printf("total explored states: [%d]\n", total_states);
 }
