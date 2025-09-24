@@ -1,7 +1,7 @@
 #ifndef PUSHSWAP_H
 # define PUSHSWAP_H
 
-# include  <stdint.h>
+# include <stdint.h>
 # include <stdbool.h>
 
 # include "libft.h"
@@ -12,7 +12,7 @@
 # include "error.h"
 
 # define STACK_LEN 10
-# define MAX_DEPTH 7
+# define MAX_DEPTH 6
 # define SEED 696035213
 # define DEBUG 1
 

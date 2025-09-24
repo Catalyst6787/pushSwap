@@ -1,3 +1,4 @@
+#include "colors.h"
 #include "push_swap.h"
 #include <assert.h>
 #include <stdint.h>
@@ -160,6 +161,7 @@ uint16_t  normalized_diff(uint16_t *stack, uint16_t stack_len)
 
 uint16_t  get_stack_diff(uint16_t *stack, uint16_t stack_len)
 {
+  // return (unnormalized_diff(stack, stack_len));
   return (unnormalized_diff(stack, stack_len));
   // TODO test other ways [ex normalized_diff()]
 }

@@ -21,7 +21,7 @@ int main(void)
   if (init_data(&data, MAX_DEPTH, STACK_LEN))
     return (ft_printf("Malloc error when initialising data :(\n"), 1);
   ft_printf("data initialized\n");
-  if (!start_all_tests(true))
+  if (!start_all_tests(false))
     return(ft_printf("test_failed..."), 1);
   init_sorted_stack(data.array_arena, data.stack_len);
   shuffle(data.array_arena, data.stack_len, SEED);
