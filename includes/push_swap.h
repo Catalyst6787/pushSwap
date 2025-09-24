@@ -11,10 +11,13 @@
 # include "colors.h"
 # include "error.h"
 
-# define STACK_LEN 10
-# define MAX_DEPTH 6
+# define STACK_LEN 15
+# define MAX_DEPTH 7
 # define SEED 696035213
 # define DEBUG 1
+# define ARBITRARY_HASHMAP_MODIFIER 10
+
+// TODO check if uint_fast16_t is faster than uint16_t
 
 typedef enum e_move
 {
@@ -32,18 +35,30 @@ typedef enum e_move
   rrr
 } t_move;
 
+typedef struct s_entry {
+  uint64_t key;
+  bool     set;
+  uint16_t depth;
+} t_entry;
+
+typedef struct s_hashmap {
+  t_entry  *entries;
+  uint64_t capacity;
+} t_hashmap;
+
 typedef struct s_data
 {
-  uint16_t max_depth;
-  uint16_t stack_len;
-  bool     best_set;
-  uint16_t best_diff;
-  uint16_t best_depth;
-  long     visited_states;
-  uint16_t *array_arena;
+  uint16_t  max_depth;
+  uint16_t  stack_len;
+  bool      best_set;
+  uint16_t  best_diff;
+  uint16_t  best_depth;
+  uint64_t  visited_states;
+  uint16_t  *array_arena;
   uint16_t  *best_arr;
-  t_move   *best_moves;
-  t_move   *current_moves;
+  t_move    *best_moves;
+  t_move    *current_moves;
+  t_hashmap hashmap;
 } t_data;
 
 // arr utils
@@ -74,7 +89,8 @@ int  rev_rotate_b(uint16_t *stack, uint16_t stack_len);
 int  rev_rotate_r(uint16_t *stack, uint16_t stack_len);
 
 // logic
-void recursion(t_data *data, t_move move, uint16_t depth);
+void  recursion(t_data *data, t_move move, uint16_t depth);
+void  repeat_till_sorted(t_data *data);
 
 // utils
 unsigned int ft_abs(int val);

@@ -8,6 +8,7 @@
 void descend(t_data *data, uint16_t depth);
 void	apply_move(t_data *data, uint16_t depth, t_move move);
 int	is_move_possible(t_data *data, uint16_t depth, t_move move);
+void  repeat_till_sorted(t_data *data);
 
 void recursion(t_data *data, t_move move, uint16_t depth)
 {
@@ -43,6 +44,53 @@ void recursion(t_data *data, t_move move, uint16_t depth)
 			data->best_set = true;
 		}
 	}
+}
+
+void  repeat_till_sorted(t_data *data)
+{
+  bool first;
+  unsigned int step;
+  long long total_states;
+  unsigned int total_ops;
+
+  step = 0;
+  total_states = 0;
+  first = true;
+  total_ops = 0;
+  data->best_diff = get_stack_diff(&data->array_arena[0], data->stack_len);
+  data->best_set = false;
+  while (first || data->best_diff > 0)
+  {
+    recursion(data, -1, 0);
+    if (!data->best_set)
+    {
+      ft_printf("no better move found. exiting...\n");
+      return ;
+    }
+    if (DEBUG)
+    {
+      ft_printf("Step n°[%d]:\nexplored [%u] states.\nBest state:\nDiff [%d]\n",
+              step,
+              data->visited_states,
+              data->best_diff);
+      print_stacks(data->best_arr, data->stack_len);
+    }
+    for (int i = 0; i < data->best_depth; i++)
+    {
+      print_move(data->best_moves[i]);
+      ft_printf("\n");
+    }
+    ft_memcpy(&data->array_arena[0], data->best_arr, sizeof(uint16_t) * (data->stack_len + 1));
+    data->best_diff = get_stack_diff(&data->array_arena[0], data->stack_len);
+    step++;
+    total_states += data->visited_states;
+    total_ops += data->best_depth;
+    data->visited_states = 0;
+    data->best_set = false;
+    first = false;
+  }
+  ft_printf("finished sorting in [%d] steps, total operations: [%d]\n", step, total_ops);
+  ft_printf("total explored states: [%d]\n", total_states);
 }
 
 void	descend(t_data *data, uint16_t depth)
